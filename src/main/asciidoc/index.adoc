@@ -1,0 +1,11 @@
+= Merkel Tree API documentation
+:toc:
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toclevels: 4
+:sectlinks:
+
+This page aims to describe all endpoints exposed by the "Merkel Tree" service.
+
+== Merkel Tree API

@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: merkel-tree
+  data:
+    mongodb:
+      authentication-database: admin
+      username: admin
+      password: password
+server:
+  error:
+    include-message: always
