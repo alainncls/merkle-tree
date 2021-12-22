@@ -204,6 +204,7 @@ class MerkelTreeControllerTest {
                         "generateMerkelTree",
                         ControllerTestUtils.preprocessRequest(),
                         ControllerTestUtils.preprocessResponse(),
+                        requestFields(fieldWithPath("items").description("The list of source items for the Merkel tree")),
                         responseFields(
                                 fieldWithPath("id").description("The Merkel tree unique ID"),
                                 fieldWithPath("children").description("First node of the tree"),
