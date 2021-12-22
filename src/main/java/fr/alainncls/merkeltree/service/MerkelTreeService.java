@@ -118,7 +118,7 @@ public class MerkelTreeService {
         }
 
         int height = 0;
-        Queue<Node> queue = new LinkedList();
+        Queue<Node> queue = new LinkedList<>();
         queue.add(node);
 
         while (true) {
