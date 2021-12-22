@@ -1,11 +1,11 @@
-package fr.alainncls.merkeltree.controller;
+package fr.alainncls.merkletree.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import fr.alainncls.merkeltree.exception.MerkelTreeNotFoundException;
-import fr.alainncls.merkeltree.model.InputItems;
-import fr.alainncls.merkeltree.model.MerkelTree;
-import fr.alainncls.merkeltree.model.Node;
-import fr.alainncls.merkeltree.service.MerkelTreeService;
+import fr.alainncls.merkletree.exception.MerkleTreeNotFoundException;
+import fr.alainncls.merkletree.model.InputItems;
+import fr.alainncls.merkletree.model.MerkleTree;
+import fr.alainncls.merkletree.model.Node;
+import fr.alainncls.merkletree.service.MerkleTreeService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
@@ -27,9 +27,9 @@ import static org.springframework.restdocs.request.RequestDocumentation.pathPara
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(value = MerkelTreeController.class)
+@WebMvcTest(value = MerkleTreeController.class)
 @AutoConfigureRestDocs(outputDir = "target/generated-snippets")
-class MerkelTreeControllerTest {
+class MerkleTreeControllerTest {
 
     private final String ROOT_HASH = "HASH_1_2_3_4";
 
@@ -41,10 +41,10 @@ class MerkelTreeControllerTest {
     private final Node node12 = Node.builder().hash("HASH_3_4").leftNode(node3).rightNode(node4).build();
     private final Node nodeRoot = Node.builder().hash(ROOT_HASH).leftNode(node11).rightNode(node12).build();
 
-    private final MerkelTree merkelTree = MerkelTree.builder().id("ID_1").children(nodeRoot).build();
+    private final MerkleTree merkleTree = MerkleTree.builder().id("ID_1").children(nodeRoot).build();
 
     @MockBean
-    private MerkelTreeService merkelTreeService;
+    private MerkleTreeService merkleTreeService;
 
     @Autowired
     private MockMvc mockMvc;
@@ -53,26 +53,26 @@ class MerkelTreeControllerTest {
     private ObjectMapper objectMapper;
 
     @Test
-    void getAllMerkelTrees() throws Exception {
-        List<MerkelTree> expectedMerkelTrees = List.of(merkelTree);
+    void getAllMerkleTrees() throws Exception {
+        List<MerkleTree> expectedMerkleTrees = List.of(merkleTree);
 
-        when(merkelTreeService.getAllMerkelTrees()).thenReturn(expectedMerkelTrees);
+        when(merkleTreeService.getAllMerkleTrees()).thenReturn(expectedMerkleTrees);
 
-        this.mockMvc.perform(RestDocumentationRequestBuilders.get("/merkeltrees/"))
-                .andExpect(handler().handlerType(MerkelTreeController.class))
-                .andExpect(handler().methodName("getAllMerkelTrees"))
+        this.mockMvc.perform(RestDocumentationRequestBuilders.get("/merkletrees/"))
+                .andExpect(handler().handlerType(MerkleTreeController.class))
+                .andExpect(handler().methodName("getAllMerkleTrees"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(expectedMerkelTrees)))
+                .andExpect(content().json(objectMapper.writeValueAsString(expectedMerkleTrees)))
                 .andDo(document(
-                        "getAllMerkelTrees",
+                        "getAllMerkleTrees",
                         ControllerTestUtils.preprocessRequest(),
                         ControllerTestUtils.preprocessResponse(),
                         responseFields(
-                                fieldWithPath("[]").description("The list of Merkel trees"),
-                                fieldWithPath("[].id").description("The Merkel tree unique ID"),
+                                fieldWithPath("[]").description("The list of Merkle trees"),
+                                fieldWithPath("[].id").description("The Merkle tree unique ID"),
                                 fieldWithPath("[].children").description("First node of the tree"),
-                                fieldWithPath("[].children.hash").description("The Merkel tree root hash, the \"Merkle root\""),
+                                fieldWithPath("[].children.hash").description("The Merkle tree root hash, the \"Merkle root\""),
                                 fieldWithPath("[].children.leftNode").description("Left node, containing itself a hash, a left and a right node, and so on"),
                                 fieldWithPath("[].children.rightNode").description("Right node, containing itself a hash, a left and a right node, and so on"),
                                 subsectionWithPath("[].children.leftNode").ignored(),
@@ -80,26 +80,26 @@ class MerkelTreeControllerTest {
     }
 
     @Test
-    void getMerkelTree() throws Exception {
+    void getMerkleTree() throws Exception {
         final String ID = "ID_1";
 
-        when(merkelTreeService.getMerkelTree(ID)).thenReturn(merkelTree);
+        when(merkleTreeService.getMerkleTree(ID)).thenReturn(merkleTree);
 
-        this.mockMvc.perform(RestDocumentationRequestBuilders.get("/merkeltrees/{id}", ID))
-                .andExpect(handler().handlerType(MerkelTreeController.class))
-                .andExpect(handler().methodName("getMerkelTree"))
+        this.mockMvc.perform(RestDocumentationRequestBuilders.get("/merkletrees/{id}", ID))
+                .andExpect(handler().handlerType(MerkleTreeController.class))
+                .andExpect(handler().methodName("getMerkleTree"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(merkelTree)))
+                .andExpect(content().json(objectMapper.writeValueAsString(merkleTree)))
                 .andDo(document(
-                        "getMerkelTree",
+                        "getMerkleTree",
                         ControllerTestUtils.preprocessRequest(),
                         ControllerTestUtils.preprocessResponse(),
-                        pathParameters(parameterWithName("id").description("The requested Merkel tree ID")),
+                        pathParameters(parameterWithName("id").description("The requested Merkle tree ID")),
                         responseFields(
-                                fieldWithPath("id").description("The Merkel tree unique ID"),
+                                fieldWithPath("id").description("The Merkle tree unique ID"),
                                 fieldWithPath("children").description("First node of the tree"),
-                                fieldWithPath("children.hash").description("The Merkel tree root hash, the \"Merkle root\""),
+                                fieldWithPath("children.hash").description("The Merkle tree root hash, the \"Merkle root\""),
                                 fieldWithPath("children.leftNode").description("Left node, containing itself a hash, a left and a right node, and so on"),
                                 fieldWithPath("children.rightNode").description("Right node, containing itself a hash, a left and a right node, and so on"),
                                 subsectionWithPath("children.leftNode").ignored(),
@@ -107,108 +107,108 @@ class MerkelTreeControllerTest {
     }
 
     @Test
-    void getMerkelTreeNotFound() throws Exception {
+    void getMerkleTreeNotFound() throws Exception {
         final String ID = "ID_3";
 
-        when(merkelTreeService.getMerkelTree(ID)).thenThrow(new MerkelTreeNotFoundException());
+        when(merkleTreeService.getMerkleTree(ID)).thenThrow(new MerkleTreeNotFoundException());
 
-        this.mockMvc.perform(RestDocumentationRequestBuilders.get("/merkeltrees/{id}", ID))
-                .andExpect(handler().handlerType(MerkelTreeController.class))
-                .andExpect(handler().methodName("getMerkelTree"))
+        this.mockMvc.perform(RestDocumentationRequestBuilders.get("/merkletrees/{id}", ID))
+                .andExpect(handler().handlerType(MerkleTreeController.class))
+                .andExpect(handler().methodName("getMerkleTree"))
                 .andDo(print())
                 .andExpect(status().isNotFound())
                 .andDo(document(
-                        "getMerkelTreeNotFound",
+                        "getMerkleTreeNotFound",
                         ControllerTestUtils.preprocessRequest(),
                         ControllerTestUtils.preprocessResponse()));
     }
 
     @Test
-    void getMerkelTreeRoot() throws Exception {
+    void getMerkleTreeRoot() throws Exception {
         final String ID = "ID_1";
 
-        when(merkelTreeService.getMerkelTreeRoot(ID)).thenReturn(ROOT_HASH);
+        when(merkleTreeService.getMerkleTreeRoot(ID)).thenReturn(ROOT_HASH);
 
-        this.mockMvc.perform(RestDocumentationRequestBuilders.get("/merkeltrees/{id}/root", ID))
-                .andExpect(handler().handlerType(MerkelTreeController.class))
-                .andExpect(handler().methodName("getMerkelTreeRoot"))
+        this.mockMvc.perform(RestDocumentationRequestBuilders.get("/merkletrees/{id}/root", ID))
+                .andExpect(handler().handlerType(MerkleTreeController.class))
+                .andExpect(handler().methodName("getMerkleTreeRoot"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(Map.of("root", ROOT_HASH))))
                 .andDo(document(
-                        "getMerkelTreeRoot",
+                        "getMerkleTreeRoot",
                         ControllerTestUtils.preprocessRequest(),
                         ControllerTestUtils.preprocessResponse(),
-                        pathParameters(parameterWithName("id").description("The requested Merkel tree ID")),
-                        responseFields(fieldWithPath("root").description("The Merkel root"))));
+                        pathParameters(parameterWithName("id").description("The requested Merkle tree ID")),
+                        responseFields(fieldWithPath("root").description("The Merkle root"))));
     }
 
     @Test
-    void getMerkelTreeHeight() throws Exception {
+    void getMerkleTreeHeight() throws Exception {
         final String ID = "ID_1";
         final Integer HEIGHT = 3;
 
-        when(merkelTreeService.getMerkelTreeHeight(ID)).thenReturn(HEIGHT);
+        when(merkleTreeService.getMerkleTreeHeight(ID)).thenReturn(HEIGHT);
 
-        this.mockMvc.perform(RestDocumentationRequestBuilders.get("/merkeltrees/{id}/height", ID))
-                .andExpect(handler().handlerType(MerkelTreeController.class))
-                .andExpect(handler().methodName("getMerkelTreeHeight"))
+        this.mockMvc.perform(RestDocumentationRequestBuilders.get("/merkletrees/{id}/height", ID))
+                .andExpect(handler().handlerType(MerkleTreeController.class))
+                .andExpect(handler().methodName("getMerkleTreeHeight"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(Map.of("height", HEIGHT))))
                 .andDo(document(
-                        "getMerkelTreeHeight",
+                        "getMerkleTreeHeight",
                         ControllerTestUtils.preprocessRequest(),
                         ControllerTestUtils.preprocessResponse(),
-                        pathParameters(parameterWithName("id").description("The requested Merkel tree ID")),
-                        responseFields(fieldWithPath("height").description("The Merkel tree height"))));
+                        pathParameters(parameterWithName("id").description("The requested Merkle tree ID")),
+                        responseFields(fieldWithPath("height").description("The Merkle tree height"))));
     }
 
     @Test
-    void getMerkelTreeLevel() throws Exception {
+    void getMerkleTreeLevel() throws Exception {
         final String ID = "ID_1";
         final int LEVEL = 2;
         final List<String> expectedHashes = List.of("HASH_1_2", "HASH_3_4");
 
-        when(merkelTreeService.getMerkelTreeLevel(ID, LEVEL)).thenReturn(expectedHashes);
+        when(merkleTreeService.getMerkleTreeLevel(ID, LEVEL)).thenReturn(expectedHashes);
 
-        this.mockMvc.perform(RestDocumentationRequestBuilders.get("/merkeltrees/{id}/{level}", ID, LEVEL))
-                .andExpect(handler().handlerType(MerkelTreeController.class))
-                .andExpect(handler().methodName("getMerkelTreeLevel"))
+        this.mockMvc.perform(RestDocumentationRequestBuilders.get("/merkletrees/{id}/{level}", ID, LEVEL))
+                .andExpect(handler().handlerType(MerkleTreeController.class))
+                .andExpect(handler().methodName("getMerkleTreeLevel"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string(objectMapper.writeValueAsString(expectedHashes)))
                 .andDo(document(
-                        "getMerkelTreeLevel",
+                        "getMerkleTreeLevel",
                         ControllerTestUtils.preprocessRequest(),
                         ControllerTestUtils.preprocessResponse(),
                         pathParameters(
-                                parameterWithName("id").description("The requested Merkel tree ID"),
-                                parameterWithName("level").description("The level in the requested Merkel tree")),
+                                parameterWithName("id").description("The requested Merkle tree ID"),
+                                parameterWithName("level").description("The level in the requested Merkle tree")),
                         responseFields(fieldWithPath("[]").description("The list of nodes' hash on this level"))));
     }
 
     @Test
-    void generateMerkelTree() throws Exception {
+    void generateMerkleTree() throws Exception {
         InputItems inputItems = InputItems.builder().items(List.of("ITEM_1", "ITEM_2", "ITEM_3", "ITEM_4")).build();
-        when(merkelTreeService.generateMerkelTree(inputItems)).thenReturn(merkelTree);
+        when(merkleTreeService.generateMerkleTree(inputItems)).thenReturn(merkleTree);
 
-        this.mockMvc.perform(RestDocumentationRequestBuilders.post("/merkeltrees/")
+        this.mockMvc.perform(RestDocumentationRequestBuilders.post("/merkletrees/")
                         .content(objectMapper.writeValueAsString(inputItems))
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(handler().handlerType(MerkelTreeController.class))
-                .andExpect(handler().methodName("generateMerkelTree"))
+                .andExpect(handler().handlerType(MerkleTreeController.class))
+                .andExpect(handler().methodName("generateMerkleTree"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andDo(document(
-                        "generateMerkelTree",
+                        "generateMerkleTree",
                         ControllerTestUtils.preprocessRequest(),
                         ControllerTestUtils.preprocessResponse(),
-                        requestFields(fieldWithPath("items").description("The list of source items for the Merkel tree")),
+                        requestFields(fieldWithPath("items").description("The list of source items for the Merkle tree")),
                         responseFields(
-                                fieldWithPath("id").description("The Merkel tree unique ID"),
+                                fieldWithPath("id").description("The Merkle tree unique ID"),
                                 fieldWithPath("children").description("First node of the tree"),
-                                fieldWithPath("children.hash").description("The Merkel tree root hash, the \"Merkle root\""),
+                                fieldWithPath("children.hash").description("The Merkle tree root hash, the \"Merkle root\""),
                                 fieldWithPath("children.leftNode").description("Left node, containing itself a hash, a left and a right node, and so on"),
                                 fieldWithPath("children.rightNode").description("Right node, containing itself a hash, a left and a right node, and so on"),
                                 subsectionWithPath("children.leftNode").ignored(),
@@ -216,22 +216,22 @@ class MerkelTreeControllerTest {
     }
 
     @Test
-    void deleteMerkelTree() throws Exception {
+    void deleteMerkleTree() throws Exception {
         final String ID = "ID_1";
 
-        doNothing().when(merkelTreeService).deleteMerkelTree(ID);
+        doNothing().when(merkleTreeService).deleteMerkleTree(ID);
 
-        this.mockMvc.perform(RestDocumentationRequestBuilders.delete("/merkeltrees/{id}", ID)
-                        .content(objectMapper.writeValueAsString(merkelTree))
+        this.mockMvc.perform(RestDocumentationRequestBuilders.delete("/merkletrees/{id}", ID)
+                        .content(objectMapper.writeValueAsString(merkleTree))
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(handler().handlerType(MerkelTreeController.class))
-                .andExpect(handler().methodName("deleteMerkelTree"))
+                .andExpect(handler().handlerType(MerkleTreeController.class))
+                .andExpect(handler().methodName("deleteMerkleTree"))
                 .andDo(print())
                 .andExpect(status().isNoContent())
                 .andDo(document(
-                        "deleteMerkelTree",
+                        "deleteMerkleTree",
                         ControllerTestUtils.preprocessRequest(),
                         ControllerTestUtils.preprocessResponse(),
-                        pathParameters(parameterWithName("id").description("The ID of the Merkel tree to delete"))));
+                        pathParameters(parameterWithName("id").description("The ID of the Merkle tree to delete"))));
     }
 }

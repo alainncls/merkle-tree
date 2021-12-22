@@ -1,6 +1,6 @@
 spring:
   application:
-    name: merkel-tree
+    name: merkle-tree
 server:
   error:
     include-message: always

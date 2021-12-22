@@ -11,10 +11,10 @@
     </parent>
 
     <groupId>fr.alainncls</groupId>
-    <artifactId>merkel-tree</artifactId>
+    <artifactId>merkle-tree</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>merkel-tree</name>
-    <description>merkel-tree</description>
+    <name>merkle-tree</name>
+    <description>Merkle tree CRUD API</description>
 
     <properties>
         <java.version>11</java.version>
@@ -107,13 +107,13 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <name>Merkel Tree</name>
+                            <name>Merkle Tree</name>
                             <version>${project.version}</version>
                             <host>localhost:8080</host>
                             <outputDirectory>${project.build.directory}/generated-docs</outputDirectory>
                             <filename>openapi</filename>
                             <specification>OPENAPI_V3</specification>
-                            <description>API description for Merkel Tree API service</description>
+                            <description>API description for Merkle Tree API service</description>
                         </configuration>
                     </execution>
                 </executions>
@@ -145,7 +145,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot-maven-plugin.version}</version>
                 <configuration>
-                    <mainClass>fr.alainncls.merkeltree.MerkelTreeApplication</mainClass>
+                    <mainClass>fr.alainncls.merkletree.MerkleTreeApplication</mainClass>
                     <excludes>
                         <exclude>
                             <groupId>org.projectlombok</groupId>

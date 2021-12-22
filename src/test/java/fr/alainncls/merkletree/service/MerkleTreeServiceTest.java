@@ -1,10 +1,10 @@
-package fr.alainncls.merkeltree.service;
+package fr.alainncls.merkletree.service;
 
-import fr.alainncls.merkeltree.exception.MerkelTreeNotFoundException;
-import fr.alainncls.merkeltree.model.InputItems;
-import fr.alainncls.merkeltree.model.MerkelTree;
-import fr.alainncls.merkeltree.model.Node;
-import fr.alainncls.merkeltree.repository.MerkelTreeRepository;
+import fr.alainncls.merkletree.exception.MerkleTreeNotFoundException;
+import fr.alainncls.merkletree.model.InputItems;
+import fr.alainncls.merkletree.model.MerkleTree;
+import fr.alainncls.merkletree.model.Node;
+import fr.alainncls.merkletree.repository.MerkleTreeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.openMocks;
 
-class MerkelTreeServiceTest {
+class MerkleTreeServiceTest {
 
     private final InputItems inputItems = InputItems.builder().items(List.of("ITEM_1", "ITEM_2", "ITEM_3", "ITEM_4")).build();
     final String ID = "ID_1";
@@ -40,13 +40,13 @@ class MerkelTreeServiceTest {
     private final Node node34 = Node.builder().hash(HASH_ITEM_3_4).leftNode(node3).rightNode(node4).build();
     private final Node nodeRoot = Node.builder().hash(HASH_ITEM_1_2_3_4).leftNode(node12).rightNode(node34).build();
 
-    private final MerkelTree merkelTree = MerkelTree.builder().id("ID_1").children(nodeRoot).build();
+    private final MerkleTree merkleTree = MerkleTree.builder().id("ID_1").children(nodeRoot).build();
 
     @Mock
-    private MerkelTreeRepository merkelTreeRepository;
+    private MerkleTreeRepository merkleTreeRepository;
 
     @InjectMocks
-    private MerkelTreeService merkelTreeService;
+    private MerkleTreeService merkleTreeService;
 
     @BeforeEach
     public void setUp() {
@@ -54,75 +54,75 @@ class MerkelTreeServiceTest {
     }
 
     @Test
-    void getAllMerkelTrees() {
-        List<MerkelTree> expectedMerkelTrees = List.of(merkelTree);
+    void getAllMerkleTrees() {
+        List<MerkleTree> expectedMerkleTrees = List.of(merkleTree);
 
-        when(merkelTreeRepository.findAll()).thenReturn(expectedMerkelTrees);
+        when(merkleTreeRepository.findAll()).thenReturn(expectedMerkleTrees);
 
-        List<MerkelTree> result = merkelTreeService.getAllMerkelTrees();
+        List<MerkleTree> result = merkleTreeService.getAllMerkleTrees();
 
-        assertThat(result).isNotNull().hasSize(expectedMerkelTrees.size()).isEqualTo(expectedMerkelTrees);
+        assertThat(result).isNotNull().hasSize(expectedMerkleTrees.size()).isEqualTo(expectedMerkleTrees);
     }
 
     @Test
-    void getMerkelTree() {
-        when(merkelTreeRepository.findById(ID)).thenReturn(Optional.of(merkelTree));
+    void getMerkleTree() {
+        when(merkleTreeRepository.findById(ID)).thenReturn(Optional.of(merkleTree));
 
-        MerkelTree result = merkelTreeService.getMerkelTree(ID);
+        MerkleTree result = merkleTreeService.getMerkleTree(ID);
 
-        assertThat(result).isNotNull().isEqualTo(merkelTree);
+        assertThat(result).isNotNull().isEqualTo(merkleTree);
     }
 
     @Test
-    void getMerkelTreeNotFound() {
-        assertThrows(MerkelTreeNotFoundException.class, () -> merkelTreeService.getMerkelTree("UNKNOWN_ID"));
+    void getMerkleTreeNotFound() {
+        assertThrows(MerkleTreeNotFoundException.class, () -> merkleTreeService.getMerkleTree("UNKNOWN_ID"));
     }
 
     @Test
-    void generateMerkelTree() {
-        MerkelTree unsavedMerkelTree = MerkelTree.builder().children(merkelTree.getChildren()).build();
+    void generateMerkleTree() {
+        MerkleTree unsavedMerkleTree = MerkleTree.builder().children(merkleTree.getChildren()).build();
 
-        when(merkelTreeRepository.save(unsavedMerkelTree)).thenReturn(merkelTree);
+        when(merkleTreeRepository.save(unsavedMerkleTree)).thenReturn(merkleTree);
 
-        merkelTreeService.generateMerkelTree(inputItems);
+        merkleTreeService.generateMerkleTree(inputItems);
 
-        verify(merkelTreeRepository, times(1)).save(unsavedMerkelTree);
+        verify(merkleTreeRepository, times(1)).save(unsavedMerkleTree);
     }
 
     @Test
-    void deleteMerkelTree() {
-        doNothing().when(merkelTreeRepository).deleteById(ID);
+    void deleteMerkleTree() {
+        doNothing().when(merkleTreeRepository).deleteById(ID);
 
-        merkelTreeService.deleteMerkelTree(ID);
+        merkleTreeService.deleteMerkleTree(ID);
 
-        verify(merkelTreeRepository, times(1)).deleteById(ID);
+        verify(merkleTreeRepository, times(1)).deleteById(ID);
     }
 
     @Test
-    void getMerkelTreeRoot() {
-        when(merkelTreeRepository.findById(ID)).thenReturn(Optional.of(merkelTree));
+    void getMerkleTreeRoot() {
+        when(merkleTreeRepository.findById(ID)).thenReturn(Optional.of(merkleTree));
 
-        String result = merkelTreeService.getMerkelTreeRoot(ID);
+        String result = merkleTreeService.getMerkleTreeRoot(ID);
 
         assertThat(result).isNotNull().isEqualTo(HASH_ITEM_1_2_3_4);
     }
 
     @Test
-    void getMerkelTreeHeight() {
+    void getMerkleTreeHeight() {
         int HEIGHT = 3;
 
-        when(merkelTreeRepository.findById(ID)).thenReturn(Optional.of(merkelTree));
+        when(merkleTreeRepository.findById(ID)).thenReturn(Optional.of(merkleTree));
 
-        int result = merkelTreeService.getMerkelTreeHeight(ID);
+        int result = merkleTreeService.getMerkleTreeHeight(ID);
 
         assertThat(result).isEqualTo(HEIGHT);
     }
 
     @Test
-    void getMerkelTreeLevel() {
-        when(merkelTreeRepository.findById(ID)).thenReturn(Optional.of(merkelTree));
+    void getMerkleTreeLevel() {
+        when(merkleTreeRepository.findById(ID)).thenReturn(Optional.of(merkleTree));
 
-        List<String> result = merkelTreeService.getMerkelTreeLevel(ID, 1);
+        List<String> result = merkleTreeService.getMerkleTreeLevel(ID, 1);
 
         assertThat(result).isNotNull().hasSize(2);
         assertThat(result.get(0)).isEqualTo(HASH_ITEM_1_2);

@@ -1,12 +1,12 @@
-package fr.alainncls.merkeltree.service;
+package fr.alainncls.merkletree.service;
 
-import fr.alainncls.merkeltree.exception.HashException;
-import fr.alainncls.merkeltree.exception.MerkelTreeLevelException;
-import fr.alainncls.merkeltree.exception.MerkelTreeNotFoundException;
-import fr.alainncls.merkeltree.model.InputItems;
-import fr.alainncls.merkeltree.model.MerkelTree;
-import fr.alainncls.merkeltree.model.Node;
-import fr.alainncls.merkeltree.repository.MerkelTreeRepository;
+import fr.alainncls.merkletree.exception.HashException;
+import fr.alainncls.merkletree.exception.MerkleTreeLevelException;
+import fr.alainncls.merkletree.exception.MerkleTreeNotFoundException;
+import fr.alainncls.merkletree.model.InputItems;
+import fr.alainncls.merkletree.model.MerkleTree;
+import fr.alainncls.merkletree.model.Node;
+import fr.alainncls.merkletree.repository.MerkleTreeRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,11 +18,11 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class MerkelTreeService {
+public class MerkleTreeService {
 
     private static final String HASH_ALGORITHM = "SHA-256";
 
-    private final MerkelTreeRepository merkelTreeRepository;
+    private final MerkleTreeRepository merkleTreeRepository;
 
     private static String bytesToHex(byte[] hash) {
         StringBuilder hexString = new StringBuilder(2 * hash.length);
@@ -36,16 +36,16 @@ public class MerkelTreeService {
         return hexString.toString();
     }
 
-    public List<MerkelTree> getAllMerkelTrees() {
-        return merkelTreeRepository.findAll();
+    public List<MerkleTree> getAllMerkleTrees() {
+        return merkleTreeRepository.findAll();
     }
 
-    public MerkelTree getMerkelTree(String id) {
-        return merkelTreeRepository.findById(id).orElseThrow(MerkelTreeNotFoundException::new);
+    public MerkleTree getMerkleTree(String id) {
+        return merkleTreeRepository.findById(id).orElseThrow(MerkleTreeNotFoundException::new);
     }
 
-    public MerkelTree generateMerkelTree(InputItems inputItems) {
-        MerkelTree merkelTree = new MerkelTree();
+    public MerkleTree generateMerkleTree(InputItems inputItems) {
+        MerkleTree merkleTree = new MerkleTree();
         List<Node> leafNodes = inputItems.getItems().stream().map(item -> Node.builder().hash(hashItem(item)).build()).collect(Collectors.toList());
         List<Node> parents = new ArrayList<>();
 
@@ -73,34 +73,34 @@ public class MerkelTreeService {
             parents = new ArrayList<>();
         }
 
-        merkelTree.setChildren(leafNodes.get(0));
+        merkleTree.setChildren(leafNodes.get(0));
 
-        return merkelTreeRepository.save(merkelTree);
+        return merkleTreeRepository.save(merkleTree);
     }
 
-    public void deleteMerkelTree(String id) {
-        merkelTreeRepository.deleteById(id);
+    public void deleteMerkleTree(String id) {
+        merkleTreeRepository.deleteById(id);
     }
 
-    public String getMerkelTreeRoot(String id) {
-        MerkelTree merkelTree = merkelTreeRepository.findById(id).orElseThrow(MerkelTreeNotFoundException::new);
-        return merkelTree.getChildren().getHash();
+    public String getMerkleTreeRoot(String id) {
+        MerkleTree merkleTree = merkleTreeRepository.findById(id).orElseThrow(MerkleTreeNotFoundException::new);
+        return merkleTree.getChildren().getHash();
     }
 
-    public int getMerkelTreeHeight(String id) {
-        MerkelTree merkelTree = merkelTreeRepository.findById(id).orElseThrow(MerkelTreeNotFoundException::new);
-        return getMerkelTreeHeight(merkelTree.getChildren());
+    public int getMerkleTreeHeight(String id) {
+        MerkleTree merkleTree = merkleTreeRepository.findById(id).orElseThrow(MerkleTreeNotFoundException::new);
+        return getMerkleTreeHeight(merkleTree.getChildren());
     }
 
-    public List<String> getMerkelTreeLevel(String id, int level) {
-        MerkelTree merkelTree = merkelTreeRepository.findById(id).orElseThrow(MerkelTreeNotFoundException::new);
-        int height = getMerkelTreeHeight(merkelTree.getChildren());
+    public List<String> getMerkleTreeLevel(String id, int level) {
+        MerkleTree merkleTree = merkleTreeRepository.findById(id).orElseThrow(MerkleTreeNotFoundException::new);
+        int height = getMerkleTreeHeight(merkleTree.getChildren());
 
         if (level >= height) {
-            throw new MerkelTreeLevelException();
+            throw new MerkleTreeLevelException();
         }
 
-        return getNodesOnLevel(merkelTree.getChildren(), level, new ArrayList<>());
+        return getNodesOnLevel(merkleTree.getChildren(), level, new ArrayList<>());
     }
 
     private String hashItem(String item) {
@@ -112,7 +112,7 @@ public class MerkelTreeService {
         }
     }
 
-    private int getMerkelTreeHeight(Node node) {
+    private int getMerkleTreeHeight(Node node) {
         if (node == null) {
             return 0;
         }

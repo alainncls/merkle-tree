@@ -1,4 +1,4 @@
-= Merkel Tree API documentation
+= Merkle Tree API documentation
 :toc2:
 :doctype: book
 :icons: font
@@ -6,104 +6,104 @@
 :toclevels: 4
 :sectlinks:
 
-This page aims to describe all endpoints exposed by the "Merkel Tree" service.
+This page aims to describe all endpoints exposed by the "Merkle Tree" service.
 
-== Merkel Tree API
+== Merkle Tree API
 
-=== Get all Merkel trees
+=== Get all Merkle trees
 
 .Request
-include::{snippets}/getAllMerkelTrees/http-request.adoc[]
+include::{snippets}/getAllMerkleTrees/http-request.adoc[]
 
 .Response
 [%collapsible]
 ====
-include::{snippets}/getAllMerkelTrees/http-response.adoc[]
+include::{snippets}/getAllMerkleTrees/http-response.adoc[]
 ====
 
 .Response fields
-include::{snippets}/getAllMerkelTrees/response-fields.adoc[]
+include::{snippets}/getAllMerkleTrees/response-fields.adoc[]
 
-=== Get one Merkel tree
+=== Get one Merkle tree
 
 .Request
-include::{snippets}/getMerkelTree/http-request.adoc[]
+include::{snippets}/getMerkleTree/http-request.adoc[]
 
 .Path parameters
-include::{snippets}/getMerkelTree/path-parameters.adoc[]
+include::{snippets}/getMerkleTree/path-parameters.adoc[]
 
 .Response
-include::{snippets}/getMerkelTree/http-response.adoc[]
+include::{snippets}/getMerkleTree/http-response.adoc[]
 
 .Response fields
-include::{snippets}/getMerkelTree/response-fields.adoc[]
+include::{snippets}/getMerkleTree/response-fields.adoc[]
 
 .Response if the company was not found
-include::{snippets}/getMerkelTreeNotFound/http-response.adoc[]
+include::{snippets}/getMerkleTreeNotFound/http-response.adoc[]
 
-=== Get a Merkel tree root
+=== Get a Merkle tree root
 
 .Request
-include::{snippets}/getMerkelTreeRoot/http-request.adoc[]
+include::{snippets}/getMerkleTreeRoot/http-request.adoc[]
 
 .Path parameters
-include::{snippets}/getMerkelTreeRoot/path-parameters.adoc[]
+include::{snippets}/getMerkleTreeRoot/path-parameters.adoc[]
 
 .Response
-include::{snippets}/getMerkelTreeRoot/http-response.adoc[]
+include::{snippets}/getMerkleTreeRoot/http-response.adoc[]
 
 .Response fields
-include::{snippets}/getMerkelTreeRoot/response-fields.adoc[]
+include::{snippets}/getMerkleTreeRoot/response-fields.adoc[]
 
-=== Get a Merkel tree height
+=== Get a Merkle tree height
 
 .Request
-include::{snippets}/getMerkelTreeHeight/http-request.adoc[]
+include::{snippets}/getMerkleTreeHeight/http-request.adoc[]
 
 .Path parameters
-include::{snippets}/getMerkelTreeHeight/path-parameters.adoc[]
+include::{snippets}/getMerkleTreeHeight/path-parameters.adoc[]
 
 .Response
-include::{snippets}/getMerkelTreeHeight/http-response.adoc[]
+include::{snippets}/getMerkleTreeHeight/http-response.adoc[]
 
 .Response fields
-include::{snippets}/getMerkelTreeHeight/response-fields.adoc[]
+include::{snippets}/getMerkleTreeHeight/response-fields.adoc[]
 
-=== Get a Merkel tree level
+=== Get a Merkle tree level
 
 .Request
-include::{snippets}/getMerkelTreeLevel/http-request.adoc[]
+include::{snippets}/getMerkleTreeLevel/http-request.adoc[]
 
 .Path parameters
-include::{snippets}/getMerkelTreeLevel/path-parameters.adoc[]
+include::{snippets}/getMerkleTreeLevel/path-parameters.adoc[]
 
 .Response
-include::{snippets}/getMerkelTreeLevel/http-response.adoc[]
+include::{snippets}/getMerkleTreeLevel/http-response.adoc[]
 
 .Response fields
-include::{snippets}/getMerkelTreeLevel/response-fields.adoc[]
+include::{snippets}/getMerkleTreeLevel/response-fields.adoc[]
 
-=== Generate a Merkel tree
+=== Generate a Merkle tree
 
 .Request
-include::{snippets}/generateMerkelTree/http-request.adoc[]
+include::{snippets}/generateMerkleTree/http-request.adoc[]
 
 .Request fields
-include::{snippets}/generateMerkelTree/request-fields.adoc[]
+include::{snippets}/generateMerkleTree/request-fields.adoc[]
 
 .Response
-include::{snippets}/generateMerkelTree/http-response.adoc[]
+include::{snippets}/generateMerkleTree/http-response.adoc[]
 
 .Response fields
-include::{snippets}/getMerkelTreeLevel/response-fields.adoc[]
+include::{snippets}/getMerkleTreeLevel/response-fields.adoc[]
 
-=== Delete a Merkel tree
+=== Delete a Merkle tree
 
 .Request
-include::{snippets}/deleteMerkelTree/http-request.adoc[]
+include::{snippets}/deleteMerkleTree/http-request.adoc[]
 
 .Path parameters
-include::{snippets}/deleteMerkelTree/path-parameters.adoc[]
+include::{snippets}/deleteMerkleTree/path-parameters.adoc[]
 
 .Response
-include::{snippets}/deleteMerkelTree/http-response.adoc[]
+include::{snippets}/deleteMerkleTree/http-response.adoc[]

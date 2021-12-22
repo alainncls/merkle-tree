@@ -1,6 +1,6 @@
-package fr.alainncls.merkeltree;
+package fr.alainncls.merkletree;
 
-import fr.alainncls.merkeltree.controller.MerkelTreeController;
+import fr.alainncls.merkletree.controller.MerkleTreeController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8,14 +8,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
-class MerkelTreeApplicationTests {
+class MerkleTreeApplicationTests {
 
     @Autowired
-    MerkelTreeController merkelTreeController;
+    MerkleTreeController merkleTreeController;
 
     @Test
     void contextLoads() {
-        assertNotNull(merkelTreeController);
+        assertNotNull(merkleTreeController);
     }
 
 }

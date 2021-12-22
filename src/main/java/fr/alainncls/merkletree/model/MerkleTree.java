@@ -1,4 +1,4 @@
-package fr.alainncls.merkeltree.model;
+package fr.alainncls.merkletree.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +10,7 @@ import org.springframework.data.annotation.Id;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MerkelTree {
+public class MerkleTree {
 
     @Id
     private String id;

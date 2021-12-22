@@ -1,4 +1,4 @@
-package fr.alainncls.merkeltree.model;
+package fr.alainncls.merkletree.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

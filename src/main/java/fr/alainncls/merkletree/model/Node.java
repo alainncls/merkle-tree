@@ -1,4 +1,4 @@
-package fr.alainncls.merkeltree.model;
+package fr.alainncls.merkletree.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;

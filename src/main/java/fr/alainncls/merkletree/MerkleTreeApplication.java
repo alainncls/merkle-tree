@@ -1,13 +1,13 @@
-package fr.alainncls.merkeltree;
+package fr.alainncls.merkletree;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MerkelTreeApplication {
+public class MerkleTreeApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(MerkelTreeApplication.class, args);
+        SpringApplication.run(MerkleTreeApplication.class, args);
     }
 
 }

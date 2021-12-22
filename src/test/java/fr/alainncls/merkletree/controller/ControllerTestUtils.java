@@ -1,4 +1,4 @@
-package fr.alainncls.merkeltree.controller;
+package fr.alainncls.merkletree.controller;
 
 import org.springframework.restdocs.operation.preprocess.OperationRequestPreprocessor;
 import org.springframework.restdocs.operation.preprocess.OperationResponsePreprocessor;
